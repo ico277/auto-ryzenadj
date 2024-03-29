@@ -3,19 +3,19 @@ PYFILES = $(wildcard ./*.py)
 BINARIES = $(PYFILES:.py=)
 SERVICE_FILE = auto-ryzenadjd.service
 
-.PHONY: install uninstall install-service uninstall-service
+.PHONY: install uninstall install-systemd uninstall-systemd
 
-install: $(BINARIES) install-service
+install: $(BINARIES)
 
 $(BINARIES):
 	cp $@.py $(PREFIX)/bin/$@
 	chmod +x $(PREFIX)/bin/$@
 
-install-service:
+install-systemd: install
 	cp $(SERVICE_FILE) /etc/systemd/system/
 
-uninstall: uninstall-service
+uninstall:
 	rm -f $(addprefix $(PREFIX)/bin/,$(BINARIES))
 
-uninstall-service:
+uninstall-systemd:
 	rm -f /etc/systemd/system/$(SERVICE_FILE)
