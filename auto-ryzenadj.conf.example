@@ -1,3 +1,7 @@
+# the default config file
+# this file usually belongs in /etc/auto-ryzenadj.conf and uses TOML format
+# the example provided is my personal configuration for a laptop with a Ryzen 3 Pro 4450U.
+
 [main]
 # how many seconds to wait between each ryzenadj call
 timer = 3
