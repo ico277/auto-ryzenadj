@@ -1,0 +1,13 @@
+[Unit]
+Description=Automatically applies custom ryzenadj profiles
+After=sockets.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/auto-ryzenadj
+User=root
+Group=root
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
