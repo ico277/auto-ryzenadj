@@ -11,6 +11,7 @@ import sys, traceback
 import argparse
 import logging
 from datetime import datetime
+from pathlib import Path
 
 # globals
 global CONFIG_PATH
@@ -64,7 +65,7 @@ def read_socket():
                     length = struct.unpack('>I', data)[0] # decode 4 byte unsigned int
                     data = connection.recv(length)
                     data = data.decode(encoding="ASCII")
-                    if data in CONFIG["profiles"]:
+                    if data in CONFIG["profiles"] or data == "auto":
                         PROFILE = data
                     else:
                         response = "ERR - invalid profile"
@@ -98,10 +99,20 @@ def ryzenadj():
     executable = "ryzenadj"
     if PROFILE == "default":
         PROFILE = CONFIG["main"]["default"]
+    profile = PROFILE
+    if profile == "auto":
+        epp = Path("/sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference")
+        sg = Path("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor")
+        if epp.exists():
+            profile = epp.read_text().strip()
+        elif sg.exists():
+            profile = sg.read_text().strip()
+    if profile not in CONFIG["profiles"]:
+        profile = CONFIG["profiles"].keys()[0]
     if "executable" in CONFIG["main"]:
         executable = CONFIG["main"]["executable"]
-    LOG.debug(f'running ryzenadj -> {executable} {" ".join(CONFIG["profiles"][PROFILE])}')
-    output = subprocess.run([executable] + CONFIG["profiles"][PROFILE], capture_output=True, text=True)
+    LOG.debug(f'running ryzenadj -> {executable} {" ".join(CONFIG["profiles"][profile])}')
+    output = subprocess.run([executable] + CONFIG["profiles"][profile], capture_output=True, text=True)
     LOG.debug(f'output stdout:\n{output.stdout}')
     LOG.debug(f'output stderr:\n{output.stderr}')
 
