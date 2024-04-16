@@ -13,6 +13,20 @@ default = "balanced"
 # uncomment to set a custom ryzenadj executable path
 #executable = ""
 
+
+[logging]
+# uncomment to set a log file
+# %date% -> date in Year-Month-Day format
+# %time% -> time in Hour:Minute:Second format
+#file = "/var/log/auto-ryzenadj/auto-ryzenadj-%time%_%date%.log"
+# set logging level
+# 0 = off
+# 1 = info
+# 2 = warning
+# 3 = debug (WARNING THIS WILL SPAM THE LOG)
+level = 2
+
+
 # Example Profiles for a Ryzen 3 Pro 4450U
 [profiles]
 power-saver = [
@@ -26,7 +40,7 @@ power-saver = [
     "--vrm-current=180000",
     "--vrmmax-current=180000",
     "--vrmsoc-current=180000",
-    "--vrmsocmax-current=180000",
+    "--vrmsocmax-curre180000",
     "--vrmgfx-current=180000"
 ]
 
