@@ -1,5 +1,5 @@
 [Unit]
-Description=Automatically applies custom ryzenadj profiles
+Description=auto-ryzenadjd
 After=sockets.target
 
 [Service]

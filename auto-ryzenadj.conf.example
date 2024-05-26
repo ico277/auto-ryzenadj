@@ -18,7 +18,7 @@ default = "balanced"
 # uncomment to set a log file
 # %date% -> date in Year-Month-Day format
 # %time% -> time in Hour:Minute:Second format
-#file = "/var/log/auto-ryzenadj/auto-ryzenadj-%time%_%date%.log"
+file = "/var/log/auto-ryzenadj/auto-ryzenadj-%time%_%date%.log"
 # set logging level
 # 0 = off
 # 1 = info
