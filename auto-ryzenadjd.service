@@ -4,7 +4,7 @@ After=sockets.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/auto-ryzenadjdq
+ExecStart=/usr/bin/auto-ryzenadjd
 User=root
 Group=root
 Restart=always
