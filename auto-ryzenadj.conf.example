@@ -40,7 +40,7 @@ power-saver = [
     "--vrm-current=180000",
     "--vrmmax-current=180000",
     "--vrmsoc-current=180000",
-    "--vrmsocmax-curre180000",
+    "--vrmsocmax-current=180000",
     "--vrmgfx-current=180000"
 ]
 

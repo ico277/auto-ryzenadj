@@ -25,5 +25,5 @@ run: build
 
 debug: clean
 	$(CXX) -DDEBUG $(CXXFILES) -o $(EXECUTABLE)_debug.out $(LDFLAGS) $(CXXFLAGS) -g
-	./$(EXECUTABLE)_debug.out $(RUNARGS)
+#	./$(EXECUTABLE)_debug.out $(RUNARGS)
 
