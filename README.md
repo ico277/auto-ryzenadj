@@ -5,6 +5,10 @@ A c++ application that automatically applies custom ryzenadj profiles
 ```sh
 # make install-systemd
 ```
+## build and install with openrc 
+```sh
+# make install-openrc
+```
 
 ## build and install without the systemd service file
 ```sh
