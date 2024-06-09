@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+
+description="auto-ryzenadjd"
+command="/usr/bin/auto-ryzenadjd"
+command_user="root:root"
+
+start() {
+	ebegin "Starting ${description}"
+	start-stop-daemon --start --background --exec ${command} --user ${command_user}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping ${description}"
+	start-stop-daemon --stop --exec ${command}
+	eend $?
+}

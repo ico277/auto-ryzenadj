@@ -7,7 +7,7 @@ ifdef DEBUG
     override CXXFLAGS = -g -DDEBUG
 endif
 
-.PHONY: all cli daemon install install-cli install_daemon systemd uninstall uninstall_cli uninstall_daemon clean
+.PHONY: all cli daemon install install-cli install-daemon install-systemd uninstall uninstall-cli uninstall-daemon uninstall-systemd uninstall-openrc clean
 
 all: cli daemon
 
@@ -28,13 +28,22 @@ install-daemon: daemon
 install-systemd: install 
 	cp $(SERVICE_FILES) /etc/systemd/system/
 
-uninstall: uninstall-cli uninstall_daemon
+install-openrc: install 
+	cp ./auto-ryzenadjd-openrc /etc/init.d/auto-ryzenadjd
+
+uninstall: uninstall-cli uninstall-daemon
 
 uninstall-cli:
 	make -f./cli.mk uninstall CXX="$(CXX)" CXXFLAGS+="$(CXXFLAGS)" PREFIX="$(PREFIX)"
 
 uninstall-daemon:
 	make -f./daemon.mk uninstall CXX="$(CXX)" CXXFLAGS+="$(CXXFLAGS)" PREFIX="$(PREFIX)"
+
+uninstall-systemd: uninstall
+	rm /etc/systemd/system/$(SERVICE_FILES) || true
+
+uninstall-openrc: uninstall
+	rm /etc/init.d/auto-ryzenadjd || true
 
 clean:
 	make -f./cli.mk clean CXX="$(CXX)" CXXFLAGS+="$(CXXFLAGS)" PREFIX="$(PREFIX)"

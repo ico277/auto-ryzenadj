@@ -14,7 +14,7 @@ install: ./$(EXECUTABLE).out
 	cp ./$(EXECUTABLE).out $(PREFIX)/bin/$(EXECUTABLE)
 
 uninstall: $(PREFIX)/bin/$(EXECUTABLE)
-	rm $(PREFIX)/bin/$(EXECUTABLE)
+	rm $(PREFIX)/bin/$(EXECUTABLE) || true
 
 clean:
 	rm ./*.out 2> /dev/null || true
