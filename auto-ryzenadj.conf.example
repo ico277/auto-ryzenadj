@@ -13,6 +13,9 @@ default = "balanced"
 # uncomment to set a custom ryzenadj executable path
 #executable = ""
 
+# group that is allowed to communicate over the socket
+socket_group = "wheel"
+
 
 [logging]
 # uncomment to set a log file

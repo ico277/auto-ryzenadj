@@ -60,6 +60,7 @@ struct Config {
     long timer = 0;
     std::string cur_profile;
     std::string executable;
+    std::string socket_group;
     std::mutex mutex;
 };
 

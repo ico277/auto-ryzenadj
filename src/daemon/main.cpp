@@ -19,10 +19,14 @@
 #include <boost/process/io.hpp>
 #include <boost/process/pipe.hpp>
 
+#include <sys/stat.h>
+#include <unistd.h>
+#include <grp.h>
+
 #include "util.hpp"
 #include "../license.hpp"
 
-#define VERSION "1.0.0b"
+#define VERSION "1.1.0b"
 
 using std::cout;
 using std::cerr;
@@ -133,6 +137,11 @@ int main(int argc, char** argv) {
             conf.executable = main_tb->get_as<string>("executable")->get();
         else
             conf.executable = "ryzenadj";
+        // socket group
+        if (main_tb->contains("socket_group"))
+            conf.socket_group = main_tb->get_as<string>("socket_group")->get();
+        else
+            conf.socket_group = "ryzenadj";
 
         // iterate through the "profiles" table
         for (auto& profile : *config_tb["profiles"].as_table()) {
@@ -178,6 +187,12 @@ int main(int argc, char** argv) {
     ba::io_context context;
     ba::local::stream_protocol::endpoint ep(socket_path);
     ba::local::stream_protocol::acceptor acceptor(context, ep);
+
+    // set owner of socket
+    chown(socket_path.c_str(), -1, getgrnam(conf.socket_group.c_str())->gr_gid);
+    // set rw permission
+    chmod(socket_path.c_str(), 0660);  // rw-rw----
+
     while (!EXIT) {
         try {
             ba::local::stream_protocol::socket socket(context);
