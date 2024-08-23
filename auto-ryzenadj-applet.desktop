@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=auto-ryzenadj-applet
+Comment=A little systray icon to control auto-ryzenadjd
+Exec=/usr/bin/auto-ryzenadj-appindicator
+Icon=battery-good
+Terminal=false
+Categories=Utility;
+StartupNotify=false
+

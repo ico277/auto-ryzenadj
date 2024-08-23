@@ -20,12 +20,10 @@ QVector<QString> get_profiles() {
 
     // read output line by line 
     for (auto& line : lines) {
-        std::cout << line << "\n";
-
         // find position of the seperator ':'
         size_t colon_pos = line.find(":");
         if (colon_pos != std::string::npos) {
-            // remove ':' amd everything after
+            // remove ':' and everything after
             line.erase(colon_pos, line.length());
             profiles.append(QString(line.c_str()));
         }
@@ -45,16 +43,22 @@ void on_button_click(const QString &button, QSystemTrayIcon &tray_icon, QMenu &m
         output += line + "\n";
     }
 
+    // send notification
     tray_icon.showMessage(QString("Set profile to '") + button + QString("'!"), QString(output.c_str()), QSystemTrayIcon::Information, 5000);
 }
 
 void refresh_selected(QAction* action) {
+    // get status info
     std::vector<std::string> lines = exec_ryzenctl({"--status"});
-
+    // parse line by line
     for (auto& line : lines) {
+        // until profile is found
         if (line.find("profile:") == 0) {
+            // find position of ':' 
             size_t colon_pos = line.find(":");
+            // and erase everything until ':' including itself
             line.erase(0, colon_pos + 1);
+            // set text of button
             action->setText("Selected: " + QString(line.c_str()));
             break;
         }
@@ -89,6 +93,8 @@ void refresh_menu(QSystemTrayIcon &tray_icon, QApplication &app, QMenu &menu) {
         });
         menu.addAction(action);
     }
+    // refresh immediatly otherwise it will be blank
+    refresh_selected(selected_action);
 
     // add the button to the menu
     menu.addAction(selected_action);
