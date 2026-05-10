@@ -1,0 +1,26 @@
+[daemon]
+# the amount of time in milliseconds to wait between rerunning
+# keep commented to disable the loop
+#loop_delay = 1000
+# set a default profile
+# keep commented to wait until a profile is manually set
+#default = "power-saver"
+
+
+[[profiles]]
+# name has to be unique
+name = "power-saver"
+# the executable to run
+executable = "/usr/bin/ryzenadj"
+# arguments for the executable
+arguments = [".", "..", '...']
+
+[[profiles]]
+name = "balanced"
+executable = "/usr/bin/ryzenadj"
+arguments = [".", "..", '...']
+
+[[profiles]]
+name = "performance"
+executable = "/usr/bin/ryzenadj"
+arguments = [".", "..", '...']
